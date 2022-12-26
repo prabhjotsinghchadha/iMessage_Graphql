@@ -14,7 +14,7 @@
     },
     "dev": {
     "dependsOn": ["^db:generate"],
-    "cache": false,
+    "cache": false
     },
     "db:generate": {
       "cache": false
@@ -29,6 +29,6 @@
       "NEXTAUTH_SECRET",
       "GOOGLE_CLIENT_ID",
       "GOOGLE_CLIENT_SECRET",
-      "MONGODB_URI",
+      "MONGODB_URI"
   ]
 }
