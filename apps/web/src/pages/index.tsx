@@ -1,10 +1,18 @@
-import { Button } from "ui";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Web() {
+  const { data } = useSession();
+
+  console.log('Here is data', data);
+
   return (
     <div>
-      <h1>Web</h1>
-      <Button />
+      {data?.user ? (
+        <button onClick={() => signOut()}>Sign Out</button>
+      ) : (
+        <button onClick={() => signIn("google")}>Sign In</button>
+      )}
+      {data?.user?.name}
     </div>
   );
 }
