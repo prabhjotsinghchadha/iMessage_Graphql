@@ -29,6 +29,7 @@
       "NEXTAUTH_SECRET",
       "GOOGLE_CLIENT_ID",
       "GOOGLE_CLIENT_SECRET",
-      "MONGODB_URI"
+      "MONGODB_URI",
+      "NODE_ENV"
   ]
 }
