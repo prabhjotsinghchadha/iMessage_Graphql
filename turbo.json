@@ -8,9 +8,13 @@
     "lint": {
       "outputs": []
     },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**"]
+    },
     "dev": {
     "dependsOn": ["^db:generate"],
-      "cache": false
+    "cache": false,
     },
     "db:generate": {
       "cache": false
@@ -18,5 +22,13 @@
     "db:push": {
       "cache": false
     }
-  }
+  },
+  "globalEnv": [
+      "DATABASE_URL",
+      "NEXTAUTH_URL",
+      "NEXTAUTH_SECRET",
+      "GOOGLE_CLIENT_ID",
+      "GOOGLE_CLIENT_SECRET",
+      "MONGODB_URI",
+  ]
 }
