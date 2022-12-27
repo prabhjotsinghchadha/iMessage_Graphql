@@ -18,7 +18,9 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
       /*
        * create a mutation to send our username to GraphQL API
        * */
-    } catch (error) { }
+    } catch (error) {
+      console.log('onSubmit error', error);
+    }
   }
 
   return (
@@ -26,12 +28,12 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
       <Stack align="center" spacing="8">
         {session ? (
           <>
-            <Text>Create a Username</Text>
+            <Text fontSize="3xl">Create a Username</Text>
             <Input
               placeholder="Enter your username"
               value={username}
               onChange={(event) => setUsername(event.target.value)} />
-            <Button onClick={onSubmit}>Save</Button>
+            <Button onClick={onSubmit} width="100%">Save</Button>
           </>
         ) : (
           <>
