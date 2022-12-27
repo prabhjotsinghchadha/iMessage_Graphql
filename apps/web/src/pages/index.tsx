@@ -5,13 +5,17 @@ import Auth from "../components/Auth/Auth";
 import Chat from "../components/Chat/Chat";
 
 export default function Web() {
-  const { data } = useSession();
+  const { data: session } = useSession();
 
-  console.log('Here is data', data);
+  console.log('Here is Session', session);
+
+  const reloadSession = () => {
+
+  };
 
   return (
     <Box>
-      {data?.user.username ? <Chat /> : <Auth />}
+      {session?.user.username ? <Chat /> : <Auth session={session} reloadSession={reloadSession} />}
     </Box>
   );
 }
