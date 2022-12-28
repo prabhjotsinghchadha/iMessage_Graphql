@@ -6,11 +6,11 @@ export default {
     createUsername: gql`
       mutation CreateUsername($username: String!) {
         createUsername(username: $username) {
-          sucess 
+          success
           error
         }
-      }  
-    `
+      }
+    `,
   },
   Subscriptions: {},
 }
