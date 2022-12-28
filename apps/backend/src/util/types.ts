@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { PubSub } from "graphql-subscriptions";
 import { Context } from "graphql-ws/lib/server";
 
