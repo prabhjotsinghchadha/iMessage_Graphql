@@ -5,22 +5,13 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import UserOperations from '../../graphql/operations/user';
+import { CreateUseranameData, CreateUsernameVariables } from "../../util/types";
 
 interface IAuthProps {
   session: Session | null;
   reloadSession: () => void;
 }
 
-interface CreateUseranameData {
-  createUserName: {
-    success: boolean;
-    error: string;
-  };
-}
-
-interface CreateUsernameVariables {
-  username: string;
-}
 
 const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
 
