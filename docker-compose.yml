@@ -1,29 +1,24 @@
-version: "3"
+version: '3'
 
 services:
-  web:
-    container_name: web
-    build:
-      context: .
-      dockerfile: ./apps/web/Dockerfile
-    restart: always
-    ports:
-      - 3000:3000
-    networks:
-      - app_network
-  api:
-    container_name: api
+  backend:
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile
-    restart: always
     ports:
       - 4000:4000
-    networks:
-      - app_network
-
+    volumes:
+      - ./apps/backend:/app/apps/backend
+      - /app/apps/backend/node_modules
+    command: npm run start:docker
+    environment:
+      MONGODB_URI: mongodb+srv://prabhjottechs:p53h4x00r@cluster0.epvq7yj.mongodb.net/imessage-graphql?retryWrites=true&w=majority
+      PORT: 4000
+      BASE_URL: http://localhost:3000
+    # networks:
+    #   - form_hub_network
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
-networks:
-  app_network:
-    external: true
+# networks:
+#   form_hub_network:
+#     external: true
