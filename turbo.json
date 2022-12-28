@@ -24,7 +24,7 @@
     }
   },
   "globalEnv": [
-      "DATABASE_URL",
+      "BASE_URL",
       "NEXTAUTH_URL",
       "NEXTAUTH_SECRET",
       "GOOGLE_CLIENT_ID",
