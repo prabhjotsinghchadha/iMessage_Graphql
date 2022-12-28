@@ -13,12 +13,13 @@ import { json } from "body-parser";
 import { GraphQLContext, Session, SubscriptionContext } from "./util/types";
 import { getSession } from "next-auth/react";
 import { expressMiddleware } from "@apollo/server/express4";
+import typeDefs from "./graphql/typeDefs"
+import resolvers from "./graphql/resolvers"
 
 const main = async () => {
   dotenv.config();
 
   const schema = makeExecutableSchema({ typeDefs, resolvers });
-  // ...
 
   const app = express();
   // This `app` is the returned value from `express()`.
@@ -38,10 +39,12 @@ const main = async () => {
 
   // Hand in the schema we just created and have the
   // WebSocketServer start listening.
-  const serverCleanup = useServer({ schema }, wsServer);
+  // const serverCleanup = useServer({ schema }, wsServer);
 
   const server = new ApolloServer({
     schema,
+    csrfPrevention: true,
+    cache: "bounded",
     plugins: [
       // Proper shutdown for the HTTP server.
       ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -51,7 +54,7 @@ const main = async () => {
         async serverWillStart() {
           return {
             async drainServer() {
-              await serverCleanup.dispose();
+              //         await serverCleanup.dispose();
             },
           };
         },
@@ -61,7 +64,7 @@ const main = async () => {
   await server.start();
 
   const corsOptions = {
-    origin: process.env.BASE_URL,
+    //origin: process.env.BASE_URL,
     credentials: true,
   };
 
