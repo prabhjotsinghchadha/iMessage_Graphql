@@ -19,7 +19,6 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm install
-RUN npm install next-auth
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
