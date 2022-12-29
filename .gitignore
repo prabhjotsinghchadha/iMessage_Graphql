@@ -34,3 +34,4 @@ yarn-error.log*
 .turbo
 
 packages/databases/dist/
+package-lock.json
