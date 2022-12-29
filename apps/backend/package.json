@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node -r @swc-node/register src/index.ts",
-    "build": "rimraf dist && tsc -b",
-    "start": "nodemon dist/src/index.js",
+    "build": "rimraf public && swc src -d public",
+    "start": "nodemon public/index.js",
     "start:docker": "npm run build && nodemon --inspect=0.0.0.0 dist/src/index.js"
   },
   "keywords": [],
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@swc-node/register": "^1.5.4",
+    "@swc/cli": "^0.1.59",
     "@swc/core": "^1.3.24",
     "@types/cors": "^2.8.12",
     "@types/lodash.merge": "^4.6.7",
