@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./apps/web:/app/apps/web
+      - /app/apps/web/node_modules
   backend:
     build:
       context: .
@@ -10,7 +21,7 @@ services:
     volumes:
       - ./apps/backend:/app/apps/backend
       - /app/apps/backend/node_modules
-    command: npm run start:docker
+    command: npm run start
     environment:
       MONGODB_URI: mongodb+srv://prabhjottechs:p53h4x00r@cluster0.epvq7yj.mongodb.net/imessage-graphql?retryWrites=true&w=majority
       PORT: 4000

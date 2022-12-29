@@ -19,11 +19,13 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
 RUN npm install
+RUN npm install next-auth
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
+RUN npx prisma generate 
 COPY turbo.json turbo.json
-RUN npm turbo run build --filter=backend...
+RUN npm run build
 
 FROM node:alpine AS runner
 WORKDIR /app
