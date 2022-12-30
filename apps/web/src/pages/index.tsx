@@ -10,7 +10,8 @@ export default function Web() {
   console.log('Here is Session', session);
 
   const reloadSession = () => {
-
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
   };
 
   return (
