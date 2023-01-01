@@ -69,7 +69,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
               placeholder="Enter your username"
               value={username}
               onChange={(event) => setUsername(event.target.value)} />
-            <Button onClick={onSubmit} width="100%">Save</Button>
+            <Button onClick={onSubmit} width="100%" isLoading={loading}>Save</Button>
           </>
         ) : (
           <>
