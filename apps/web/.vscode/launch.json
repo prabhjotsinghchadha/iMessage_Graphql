@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug React",
+            "type": "node",
+            "request": "launch",
+            "program": "../node_modules/react-scripts/scripts/start.js",
+            "args": [],
+            "cwd": "../",
+            "protocol": "inspector",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}
