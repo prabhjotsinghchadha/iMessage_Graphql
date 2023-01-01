@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import UserOperations from '../../graphql/operations/user';
 import { CreateUseranameData, CreateUsernameVariables } from "../../util/types";
+import toast from "react-hot-toast";
 
 interface IAuthProps {
   session: Session | null;
@@ -27,7 +28,32 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   const onSubmit = async () => {
     if (!username) return;
     try {
-      await createUsername({ variables: { username } })
+      // await createUsername({ variables: { username } })
+      const { data } = await createUsername({
+        variables: {
+          username,
+        },
+      });
+
+      if (!data?.createUsername) {
+        throw new Error();
+      }
+
+      if (data.createUsername.error) {
+        const {
+          createUsername: { error },
+        } = data;
+
+        toast.error(error);
+        return;
+      }
+
+      toast.success("Username successfully created");
+
+      /**
+       * Reload session to obtain new username
+       */
+      reloadSession();
     } catch (error) {
       console.log('onSubmit error', error);
     }
