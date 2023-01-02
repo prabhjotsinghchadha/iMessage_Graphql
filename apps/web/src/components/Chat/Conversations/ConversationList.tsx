@@ -3,16 +3,16 @@ import { Session } from "next-auth";
 import { useState } from "react";
 import ConversationModal from "./Modal/Modal"
 
-interface ConversationList {
+interface ConversationListProps {
   session: Session;
 }
 
-const ConversationList: React.FC<ConversationList> = () => {
+const ConversationList: React.FC<ConversationListProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
-
 
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
+
   return (
     <Box width="100%">
       <Box
@@ -28,7 +28,7 @@ const ConversationList: React.FC<ConversationList> = () => {
           Find or start a conversation
         </Text>
       </Box>
-      <ConversationModal />
+      <ConversationModal isOpen={isOpen} onClose={onClose} />
     </Box>
   )
 }

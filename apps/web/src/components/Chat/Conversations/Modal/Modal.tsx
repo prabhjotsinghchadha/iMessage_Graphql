@@ -1,11 +1,11 @@
-import { Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Text } from '@chakra-ui/react'
 
-interface Modal {
+interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ConverstationModal: React.FC<Modal> = ({ isOpen, onClose }) => {
+const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -14,14 +14,12 @@ const ConverstationModal: React.FC<Modal> = ({ isOpen, onClose }) => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>Modal Body</Text>
+            <Text>Modal Boday</Text>
           </ModalBody>
-
         </ModalContent>
-
       </Modal>
     </>
   )
 }
 
-export default ConverstationModal;
+export default ConversationModal;
