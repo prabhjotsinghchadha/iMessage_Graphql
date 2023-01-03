@@ -35,4 +35,6 @@ WORKDIR /app
 COPY --from=installer /app .
 WORKDIR /app/apps/web
 
+EXPOSE 3000
+
 CMD [ "npm", "start" ]

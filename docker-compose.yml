@@ -12,10 +12,13 @@ services:
     volumes:
       - ./apps/web:/app/apps/web
       - /app/apps/web/node_modules
+    networks:
+      - app_network
   backend:
     build:
       context: .
       dockerfile: ./apps/backend/Dockerfile
+    restart: always
     ports:
       - 4000:4000
     volumes:
@@ -26,6 +29,14 @@ services:
       MONGODB_URI: mongodb+srv://prabhjottechs:p53h4x00r@cluster0.epvq7yj.mongodb.net/imessage-graphql?retryWrites=true&w=majority
       PORT: 4000
       BASE_URL: http://localhost:3000
+      GOOGLE_CLIENT_ID: 354335989867-6pc201ttmmeq2ikdtvgov0qcdbkr93u6.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    external: true
     # networks:
     #   - form_hub_network
 # Define a network, which allows containers to communicate

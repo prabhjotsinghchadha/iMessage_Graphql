@@ -22,6 +22,7 @@ RUN npm install
 
 # Build the project and its dependencies
 COPY --from=builder /app/out/full/ .
+COPY packages/ packages/
 RUN npx prisma generate 
 COPY turbo.json turbo.json
 RUN npm run build
@@ -35,5 +36,7 @@ WORKDIR /app
 #USER expressjs
 COPY --from=installer /app .
 WORKDIR /app/apps/backend
+
+EXPOSE 4000
 
 CMD [ "npm", "start" ]
