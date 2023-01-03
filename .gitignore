@@ -35,3 +35,4 @@ yarn-error.log*
 
 packages/databases/dist/
 package-lock.json
+env.list
