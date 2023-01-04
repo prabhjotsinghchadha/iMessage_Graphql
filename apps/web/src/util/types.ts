@@ -1,3 +1,6 @@
+/*
+ * Users 
+* */
 export interface CreateUseranameData {
   createUsername: {
     success: boolean;
@@ -20,4 +23,18 @@ export interface SearchUsersData {
 export interface SearchedUser {
   id: string;
   username: string;
+}
+
+/*
+ * Conversation
+* */
+
+export interface CreateConversationData {
+  createConversation: {
+    conversationId: string;
+  };
+}
+
+export interface CreateConversationInputs {
+  participantIds: Array<string>
 }
