@@ -2,7 +2,8 @@ import { useLazyQuery } from '@apollo/client';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, Stack, Input, Button } from '@chakra-ui/react'
 import { useState } from 'react';
 import UserOperations from '../../../../graphql/operations/user'
-import { SearchUsersData, SearchUsersInput } from '../../../../util/types';
+import { SearchedUser, SearchUsersData, SearchUsersInput } from '../../../../util/types';
+import Participants from './Participants';
 import UserSearchList from './UserSearchList';
 
 interface ModalProps {
@@ -12,6 +13,7 @@ interface ModalProps {
 
 const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState('');
+  const [participants, setParticipants] = useState<Array<SearchedUser>>([]);
   const [searchUsers, { data, loading, error }] = useLazyQuery<SearchUsersData, SearchUsersInput>(UserOperations.Queries.searchUsers)
 
   console.log("Here is search data", data)
@@ -20,6 +22,14 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     event.preventDefault();
     searchUsers({ variables: { username } });
     //searchUsers Query
+  }
+
+  const addParticipant = (user: SearchedUser) => {
+    setParticipants(prev => [...prev, user]);
+  }
+
+  const removeParticipant = (userId: string) => {
+    setParticipants(prev => prev.filter((p) => p.id !== userId));
   }
 
   return (
@@ -40,7 +50,12 @@ const ConversationModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 <Button type="submit" disabled={!username} isLoading={loading}>Search</Button>
               </Stack>
             </form>
-            {data?.searchUsers && <UserSearchList users={data.searchUsers} />}
+            {data?.searchUsers &&
+              <UserSearchList
+                users={data.searchUsers}
+                addParticipant={addParticipant}
+              />}
+            {participants.length !== 0 && (<Participants participants={participants} removeParticipant={removeParticipant} />)}
           </ModalBody>
         </ModalContent>
       </Modal>
