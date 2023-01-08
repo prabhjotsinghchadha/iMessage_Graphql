@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const typeDefs = gql`
   type Mutation {
-    createConversation(participantIds: String): CreateConversationResponse
+    createConversation(participantIds: [String]): CreateConversationResponse
   }
 
   type CreateConversationResponse {
