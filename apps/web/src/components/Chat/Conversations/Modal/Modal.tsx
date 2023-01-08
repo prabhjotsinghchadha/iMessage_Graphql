@@ -91,7 +91,7 @@ const ConversationModal: React.FC<ModalProps> = ({ session, isOpen, onClose }) =
                   mt={6}
                   isLoading={createConversationLoading}
                   onClick={onCreateConversation}
-                >
+                >Create a Conversation
                 </Button>
               </>
             )}
