@@ -14,7 +14,7 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, token, user }) {
-      console.log('Inside of the session callbacks');
+      //console.log('Inside of the session callbacks');
       return { ...session, user: { ...session.user, ...user } };
     },
   }
