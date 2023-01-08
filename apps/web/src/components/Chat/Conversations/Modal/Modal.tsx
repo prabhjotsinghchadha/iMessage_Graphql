@@ -23,15 +23,21 @@ const ConversationModal: React.FC<ModalProps> = ({ session, isOpen, onClose }) =
 
   const [username, setUsername] = useState('');
   const [participants, setParticipants] = useState<Array<SearchedUser>>([]);
+
   const [searchUsers, { data, loading, error }] = useLazyQuery<SearchUsersData, SearchUsersInput>(UserOperations.Queries.searchUsers);
-  const [createConversation, { loading: createConversationLoading }] = useMutation<CreateConversationData, CreateConversationInputs>(ConversationOperations.Mutations.createConversation)
+  const [createConversation, { loading: createConversationLoading }] = useMutation<
+    CreateConversationData,
+    CreateConversationInputs
+  >(ConversationOperations.Mutations.createConversation)
 
 
   const onCreateConversation = async () => {
     const participantIds = [userId, ...participants.map((p) => p.id)];
     try {
       const { data } = await createConversation({
-        variables: { participantIds, }
+        variables: {
+          participantIds,
+        }
       })
       console.log("Here is search data", data)
     } catch (error: any) {
