@@ -7,7 +7,7 @@ import Chat from "../components/Chat/Chat";
 export default function Web() {
   const { data: session } = useSession();
 
-  console.log('Here is Session', session);
+  //console.log('Here is Session', session);
 
   const reloadSession = () => {
     const event = new Event("visibilitychange");
