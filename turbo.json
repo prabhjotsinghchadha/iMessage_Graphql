@@ -30,6 +30,7 @@
       "GOOGLE_CLIENT_ID",
       "GOOGLE_CLIENT_SECRET",
       "MONGODB_URI",
-      "NODE_ENV"
+      "NODE_ENV",
+      "NEXT_PUBLIC_BASE_URL"
   ]
 }
