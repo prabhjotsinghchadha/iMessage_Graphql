@@ -6,6 +6,7 @@ import ConversationOperations from '../../../graphql/operations/conversation'
 import { ConversationsData } from "../../../util/types";
 import { ConversationPopulated } from "../../../../../backend/src/util/types";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface ConversationsWrapper {
   session: Session;
@@ -20,14 +21,18 @@ const ConversationsWrapper: React.FC<ConversationsWrapper> = ({ session, }) => {
   } = useQuery<ConversationsData, null>(
     ConversationOperations.Queries.conversations
   );
+  const router = useRouter();
+  const { query: { conversationId } } = router;
 
-  const onViewConversations = async (conversationId: string) => {
+  const onViewConversation = async (conversationId: string) => {
     /**
     * 1. Push the conversationId to the router query prams
     *
     * 2. Mark the conversation as read
     *
     */
+
+    router.push({ query: { conversationId } });
   };
 
   const subscribeToNewConversations = () => {
@@ -60,9 +65,15 @@ const ConversationsWrapper: React.FC<ConversationsWrapper> = ({ session, }) => {
   }, []);
 
   return (
-    <Box width={{ base: "100%", md: "400px" }} bg="whiteAlpha.50" py={6} px={3} >
+    <Box
+      display={{ base: conversationId ? "none" : "flex", md: "flex" }}
+      width={{ base: "100%", md: "400px" }} bg="whiteAlpha.50" py={6} px={3} >
       {/* Skeleton Loader */}
-      <ConversationList session={session} conversations={conversationsData?.conversations || []} />
+      <ConversationList
+        session={session}
+        conversations={conversationsData?.conversations || []}
+        onViewConversation={onViewConversation}
+      />
     </Box>
   )
 }
