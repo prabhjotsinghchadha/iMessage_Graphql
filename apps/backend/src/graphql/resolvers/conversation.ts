@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { GraphQLError } from "graphql";
+import { withFilter } from "graphql-subscriptions";
 import { ConversationPopulated, GraphQLContext } from "../../util/types";
 
 const resolvers = {
@@ -37,7 +38,7 @@ const resolvers = {
       args: { participantIds: Array<string> },
       context: GraphQLContext
     ): Promise<{ conversationId: string }> => {
-      const { session, prisma } = context;
+      const { session, prisma, pubsub } = context;
       const { participantIds } = args;
 
       if (!session?.user) {
@@ -63,6 +64,9 @@ const resolvers = {
         })
 
         //emit a CONVERSATION_CREATED event using pubsub
+        pubsub.publish('CONVERSATION_CREATED', {
+          conversationCreated: conversation,
+        })
 
         return {
           conversationId: conversation.id,
@@ -73,7 +77,37 @@ const resolvers = {
       }
     },
   },
+  Subscription: {
+    conversationCreated: {
+      subscribe: withFilter(
+        (_: any, __: any, context: GraphQLContext) => {
+          const { pubsub } = context;
+
+          return pubsub.asyncIterator(["CONVERSATION_CREATED"]);
+        },
+        (
+          payload: ConversationCreatedSubscriptionPayload,
+          _,
+          context: GraphQLContext
+        ) => {
+          const { session } = context;
+          const {
+            conversationCreated: { participants },
+          } = payload;
+
+          const userIsParticipant = !!participants.find(
+            (p) => p.userId === session?.user?.id
+          );
+          return userIsParticipant;
+        }
+      ),
+    },
+  }
 };
+
+export interface ConversationCreatedSubscriptionPayload {
+  conversationCreated: ConversationPopulated;
+}
 
 export const participantPopulated = Prisma.validator<Prisma.ConversationParticipantInclude>()({
   user: {
