@@ -5,6 +5,10 @@ Welcome to our iMessage clone app!
 This app is a reproduction of the popular messaging platform, iMessage, and was built using the following technologies:
 
 - [Next.js](https://nextjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [MongoDB](https://www.mongodb.com/)
+- [NodeJS](https://nodejs.org/)
+- [Chakra UI](https://chakra-ui.com)
 - [GraphQL](https://graphql.org/)
 - [Apollo](https://www.apollographql.com/)
 - [Prisma](https://www.prisma.io/)
