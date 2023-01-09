@@ -1,35 +1,30 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
+import { MessageFields } from "./messages";
 
 const ConversationFields = `
- conversations {
-   id 
-   participants {
-     user {
-       id 
-       username
-     }
-     hasSeenLatestMessage
-   }
-   latestMessage {
-     id 
-     sender {
-       id 
-       username
-     }
-     body 
-     createdAt
-   }
-   updatedAt
- }
-`
+  id
+  updatedAt
+  participants {
+    user {
+      id
+      username
+    }
+    hasSeenLatestMessage
+  }
+  latestMessage {
+    ${MessageFields}
+  }
+`;
 
 export default {
   Queries: {
     conversations: gql`
-    query Conversations {
-      ${ConversationFields}
+      query Conversations {
+        conversations {
+          ${ConversationFields}
+        }
       }
-    `
+    `,
   },
   Mutations: {
     createConversation: gql`
@@ -38,7 +33,57 @@ export default {
           conversationId
         }
       }
-    `
-  }
-}
-
+    `,
+    markConversationAsRead: gql`
+      mutation MarkConversationAsRead(
+        $userId: String!
+        $conversationId: String!
+      ) {
+        markConversationAsRead(userId: $userId, conversationId: $conversationId)
+      }
+    `,
+    deleteConversation: gql`
+      mutation deleteConversation($conversationId: String!) {
+        deleteConversation(conversationId: $conversationId)
+      }
+    `,
+    updateParticipants: gql`
+      mutation UpdateParticipants(
+        $conversationId: String!
+        $participantIds: [String]!
+      ) {
+        updateParticipants(
+          conversationId: $conversationId
+          participantIds: $participantIds
+        )
+      }
+    `,
+  },
+  Subscriptions: {
+    conversationCreated: gql`
+      subscription ConversationCreated {
+        conversationCreated {
+          ${ConversationFields}
+        }
+      }
+    `,
+    conversationUpdated: gql`
+      subscription ConversationUpdated {
+        conversationUpdated {
+          conversation {
+            ${ConversationFields}
+          }
+          addedUserIds
+          removedUserIds
+        }
+      }
+    `,
+    conversationDeleted: gql`
+      subscription ConversationDeleted {
+        conversationDeleted {
+          id
+        }
+      }
+    `,
+  },
+};
