@@ -23,7 +23,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.4.2",
+    "@chakra-ui/react": "^2.4.6",
     "dotenv-cli": "^6.0.0"
   },
   "packageManager": "npm@9.2.0"
