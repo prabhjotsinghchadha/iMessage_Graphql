@@ -5,6 +5,7 @@ import MessageOperations from '../../../../graphql/operations/messages';
 import { toast } from "react-hot-toast";
 import SkeletonLoader from "../../common/SkeletonLoader";
 import { useEffect } from "react";
+import MessageItem from "./MessageItem";
 
 interface MessagesProps {
   userId: string;
@@ -59,8 +60,10 @@ const Messages: React.FC<MessagesProps> = ({ userId, conversationId }) => {
     {data?.messages && (
       <Flex direction="column-reverse" overflowY="scroll" height="100%">
         {data.messages.map((message) => (
-          // <MessageItem />
-          <div key={message.body}>{message.body}</div>
+          <MessageItem
+            message={message}
+            sentByMe={message.sender.id === userId}
+          />
         ))}
       </Flex>
     )}
