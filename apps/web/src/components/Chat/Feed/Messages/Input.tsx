@@ -1,7 +1,11 @@
+import { useMutation } from "@apollo/client";
 import { Box, Input } from "@chakra-ui/react";
+import { ObjectID } from "bson";
 import { Session } from "next-auth";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { SendMessageArguments } from "../../../../../../backend/src/util/types";
+import MessageOperations from '../../../../graphql/operations/messages'
 
 interface MessageInputProps {
   session: Session;
@@ -11,10 +15,30 @@ interface MessageInputProps {
 const MessageInput: React.FC<MessageInputProps> = ({ session, conversationId }) => {
 
   const [messageBody, setMessageBody] = useState("");
+
+  const [sendMessage] = useMutation<{ sendMessage: boolean }, SendMessageArguments>(MessageOperations.Mutations.sendMessage)
   const onSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
+      const { id: senderId } = session.user;
+      const messageId = new ObjectID().toString();
+      const newMessage: SendMessageArguments = {
+        id: messageId,
+        senderId,
+        conversationId,
+        body: messageBody,
+      }
+
+      const { data, errors } = await sendMessage({
+        variables: {
+          ...newMessage,
+        }
+      })
+
+      if (!data?.sendMessage || errors) {
+        throw new Error("failed to send message");
+      }
 
     } catch (error: any) {
       console.log("onSendMessage error", error)
