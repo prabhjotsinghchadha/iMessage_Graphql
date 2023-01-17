@@ -22,6 +22,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByMe }) => {
       p={4}
       spacing={4}
       _hover={{ bg: "whiteAlpha.200" }}
+      justify={sentByMe ? "flex-end" : "flex-start"}
       wordBreak="break-word"
     >
       {!sentByMe && (
@@ -30,7 +31,11 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByMe }) => {
         </Flex>
       )}
       <Stack spacing={1} width="100%">
-        <Stack direction="row" align="center">
+        <Stack
+          direction="row"
+          align="center"
+          justify={sentByMe ? "flex-end" : "flex-start"}
+        >
           {!sentByMe && (
             <Text fontWeight={500} textAlign="left">
               {message.sender.username}
@@ -44,8 +49,14 @@ const MessageItem: React.FC<MessageItemProps> = ({ message, sentByMe }) => {
             })}
           </Text>
         </Stack>
-        <Flex>
-          <Box>
+        <Flex justify={sentByMe ? "flex-end" : "flex-start"}>
+          <Box
+            bg={sentByMe ? "brand.100" : "whiteAlpha.300"}
+            px={2}
+            py={1}
+            borderRadius={12}
+            maxWidth="65%"
+          >
             <Text>{message.body}</Text>
           </Box>
         </Flex>
