@@ -48,7 +48,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ session, conversationId }) 
 
   return (
     <Box px={4} py={6} width="100%">
-      <form onSubmit={() => { }}>
+      <form onSubmit={onSendMessage}>
         <Input
           value={messageBody}
           onChange={(event) => setMessageBody(event.target.value)}
