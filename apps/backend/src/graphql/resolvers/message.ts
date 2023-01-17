@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { GraphQLError } from "graphql";
 import { withFilter } from "graphql-subscriptions";
+import { userIsConversationParticipant } from "../../util/functions";
 import { GraphQLContext, MessagePopulated, SendMessageArguments, SendMessageSubscriptionPayload } from "../../util/types";
 import { conversationPopulated } from "./conversation";
 
@@ -19,10 +20,10 @@ const resolvers = {
         throw new GraphQLError('Not Authorized')
       }
 
-      //  const { user: { id: userId }, } = session;
+      const { user: { id: userId }, } = session;
 
       /**
-       * Verify that user is a participant
+       * Verify that conversation exists & user is a participant
        */
       const conversation = await prisma.conversation.findUnique({
         where: {
@@ -35,7 +36,28 @@ const resolvers = {
         throw new GraphQLError("Conversation Not Found");
       }
 
-      return [];
+      const allowedToView = userIsConversationParticipant(conversation.participants, userId)
+
+      if (!allowedToView) {
+        throw new GraphQLError("Not Authorized");
+      }
+
+      try {
+        const messages = await prisma.message.findMany({
+          where: {
+            conversationId
+          },
+          include: messagePopulated,
+          orderBy: {
+            createdAt: "desc",
+          }
+        })
+        return messages;
+      } catch (error: any) {
+        console.log('messages error', error);
+        throw new GraphQLError(error?.message);
+      }
+
     }
 
   },
