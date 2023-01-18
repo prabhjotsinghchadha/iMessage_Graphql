@@ -46,7 +46,7 @@ const Messages: React.FC<MessagesProps> = ({ userId, conversationId }) => {
     subscribeToMoreMessages(conversationId);
   }, [conversationId]);
 
-  console.log("Here is Messages Data", data)
+  //console.log("Here is Messages Data", data)
 
   if (error) {
     return null;
