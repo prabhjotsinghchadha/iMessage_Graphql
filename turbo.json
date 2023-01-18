@@ -32,6 +32,7 @@
       "MONGODB_URI",
       "NODE_ENV",
       "NEXT_PUBLIC_BASE_URL",
-      "NEXT_PUBLIC_SECRET"
+      "NEXT_PUBLIC_SECRET",
+      "PORT"
   ]
 }

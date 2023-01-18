@@ -8,7 +8,7 @@
     "dev:swc": "node -r @swc-node/register src/index.ts",
     "build:swc": "rimraf public && swc src -d public",
     "build": "rimraf dist && tsc -b",
-    "start": "nodemon public/index.js",
+    "start": "node dist/src/index.js",
     "start:docker": "npm run build && nodemon --inspect=0.0.0.0 dist/src/index.js"
   },
   "keywords": [],
