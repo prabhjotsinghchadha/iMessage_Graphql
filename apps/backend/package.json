@@ -7,21 +7,17 @@
     "dev": "nodemon src/index.ts",
     "dev:swc": "node -r @swc-node/register src/index.ts",
     "build:swc": "rimraf public && swc src -d public",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc -b",
     "start": "node dist/src/index.js",
-    "start:docker": "npm run build && nodemon --inspect=0.0.0.0 dist/src/index.js",
-    "dev2": "nodemon --watch src --exec ts-node --swc src/index.ts",
-    "lint": "eslint src --ext .js,.ts",
-    "lint:fix": "eslint src --fix --ext .js,.ts",
-    "format": "prettier --write \"src/**/*.(js|ts)\""
+    "start:docker": "npm run build && nodemon --inspect=0.0.0.0 dist/src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.3.0",
-    "@graphql-tools/schema": "^9.0.13",
-    "@prisma/client": "^4.9.0",
+    "@graphql-tools/schema": "^9.0.12",
+    "@prisma/client": "^4.8.1",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -43,17 +39,9 @@
     "@types/ws": "^8.5.4",
     "chokidar": "^3.5.3",
     "nodemon": "^2.0.20",
-    "prisma": "^4.9.0",
-    "rimraf": "^4.1.1",
+    "prisma": "^4.8.1",
+    "rimraf": "^4.1.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4",
-    "@typescript-eslint/eslint-plugin": "5.48.2",
-    "@typescript-eslint/parser": "5.48.2",
-    "eslint": "^8.32.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-prettier": "8.6.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.3"
+    "typescript": "^4.9.4"
   }
 }
