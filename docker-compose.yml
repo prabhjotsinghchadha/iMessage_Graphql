@@ -31,8 +31,6 @@ services:
       BASE_URL: http://localhost:3000
       GOOGLE_CLIENT_ID: 354335989867-6pc201ttmmeq2ikdtvgov0qcdbkr93u6.apps.googleusercontent.com
       GOOGLE_CLIENT_SECRET: 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
-      NEXTAUTH_URL: http://localhost:3000
-      NEXT_PUBLIC_SECRET: 61801e4c5f126e1dbe68536eafba9233
     networks:
       - app_network
 
