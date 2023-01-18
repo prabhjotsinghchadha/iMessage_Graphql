@@ -30,6 +30,8 @@ const MessageInput: React.FC<MessageInputProps> = ({ session, conversationId }) 
         conversationId,
         body: messageBody,
       }
+      //Clear input state 
+      setMessageBody("");
 
       const { data, errors } = await sendMessage({
         variables: {

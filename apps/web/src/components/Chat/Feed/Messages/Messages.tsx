@@ -23,9 +23,6 @@ const Messages: React.FC<MessagesProps> = ({ userId, conversationId }) => {
     },
   })
 
-  if (error) {
-    return null;
-  }
 
   const subscribeToMoreMessages = (conversationId: string) => {
     subscribeToMore({
@@ -50,6 +47,10 @@ const Messages: React.FC<MessagesProps> = ({ userId, conversationId }) => {
   }, [conversationId]);
 
   console.log("Here is Messages Data", data)
+
+  if (error) {
+    return null;
+  }
 
   return <Flex direction="column" justify="flex-end" overflow="hidden">
     {loading && (
