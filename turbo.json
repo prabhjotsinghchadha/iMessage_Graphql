@@ -21,6 +21,14 @@
     },
     "db:push": {
       "cache": false
+    },
+    "backend#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/src/**"]
+    },
+    "start": {
+    "dependsOn": ["^db:generate"],
+    "cache": false
     }
   },
   "globalEnv": [
