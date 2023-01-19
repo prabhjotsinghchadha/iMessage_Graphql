@@ -6,11 +6,9 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "dev:swc": "node -r @swc-node/register src/index.ts",
-    "build": "rimraf public && swc src -d public",
-    "build:tsc": "rimraf dist && tsc",
-    "start": "node dist/src/index.js",
-    "start:docker": "npm run build && nodemon --inspect=0.0.0.0 dist/src/index.js",
-    "dev2": "nodemon --watch src --exec ts-node --swc src/index.ts",
+    "build:swc": "rimraf public && swc src -d public",
+    "build": "rimraf public && tsc",
+    "start": "node public/src/index.js",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "format": "prettier --write \"src/**/*.(js|ts)\""
