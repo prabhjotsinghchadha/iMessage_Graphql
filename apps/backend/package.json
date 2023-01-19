@@ -8,7 +8,7 @@
     "dev:swc": "node -r @swc-node/register src/index.ts",
     "build:swc": "rimraf public && swc src -d public",
     "build": "rimraf public && tsc",
-    "start": "node public/src/index.js",
+    "start": "node public/index.js",
     "lint": "eslint src --ext .js,.ts",
     "lint:fix": "eslint src --fix --ext .js,.ts",
     "format": "prettier --write \"src/**/*.(js|ts)\""
